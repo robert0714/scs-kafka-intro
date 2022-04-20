@@ -41,6 +41,8 @@ spec:
             - containerPort: 8080
               name: http
           env:
+            - name: TZ
+              value: Asia/Taipei
             - name: SPRING_PROFILES_ACTIVE
               value: kube
             - name: JAVA_OPTS

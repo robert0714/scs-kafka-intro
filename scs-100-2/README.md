@@ -7,8 +7,8 @@ A simple Example of an Event Driven Flow by the help of **SPRING CLOUD STREAM KA
 ##### properties
 
 * java.version: `11`
-* spring-cloud.version: `2020.0.3`
-* spring-boot.version: `2.5.2`
+* spring-cloud.version: `2020.0.5`
+* spring-boot.version: `2.5.12`
 
 ### Documentation
 Please visit [Spring Cloud Stream Kafka (Part 3)](https://tanzu.vmware.com/developer/guides/event-streaming/spring-cloud-stream-kafka-p3/) for Project documentation

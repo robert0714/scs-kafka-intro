@@ -9,8 +9,8 @@ A simple example for an Event Driven Flow by the help of **SPRING CLOUD STREAM K
 ##### properties
 
 * java.version: `11`
-* spring-cloud.version: `Hoxton.SR11` (To get Advantage of Binders `@Input`,`@Output`)
-* spring-boot.version: `2.4.5`
+* spring-cloud.version: `Hoxton.SR12` (To get Advantage of Binders `@Input`,`@Output`)
+* spring-boot.version: `2.4.13`
 
 ### Documentation
 Please visit [Spring Cloud Stream Kafka (Part 1)](https://tanzu.vmware.com/developer/guides/event-streaming/spring-cloud-stream-kafka-p1/) for Project documentation
@@ -39,7 +39,7 @@ Then run the generated jar file in `target` folder, (so make sure you are in the
 file or give the full path)
 
 ```shell
-java -jar scs-099-0.0.1-SNAPSHOT.jar
+java -jar target/scs-099-0.0.1-SNAPSHOT.jar   -Dserver.port=8090 
 ```
 
 _the application starts to listen on port 8080. make sure that port is not occupied by any other app already, if is try
@@ -50,7 +50,7 @@ Basically in this test, Producer adding 10 messages into kafka topic every 5 sec
 ## Single Producer and Single Consumer
 
 ```shell
-java -Dspring.profiles.active=test2 -jar scs-099-0.0.1-SNAPSHOT.jar
+java -Dspring.profiles.active=test2  -Dserver.port=8090 -jar target/scs-099-0.0.1-SNAPSHOT.jar
 ```
 
 ![General Flow Diagram](material/kafka-events-intro-099-2.svg)
@@ -70,19 +70,19 @@ Run the following codes in 3 different terminal
 on Terminal-1: (this app has one Producer and one consumer)
 
 ```shell
-java -Dspring.profiles.active=test2 -jar scs-099-0.0.1-SNAPSHOT.jar
+java -Dspring.profiles.active=test2 -Dserver.port=8090  -jar target/scs-099-0.0.1-SNAPSHOT.jar
 ```
 
 on Terminal-2: (this app has only one consumer)
 
 ```shell
-java -Dspring.profiles.active=test2 -Dserver.port=8081 -jar scs-099-0.0.1-SNAPSHOT.jar
+java -Dspring.profiles.active=test2 -Dserver.port=8091 -jar target/scs-099-0.0.1-SNAPSHOT.jar
 ```
 
 on Terminal-3: (this app has only one consumer)
 
 ```shell
-java -Dspring.profiles.active=test2 -Dserver.port=8082 -jar scs-099-0.0.1-SNAPSHOT.jar
+java -Dspring.profiles.active=test2 -Dserver.port=8092 -jar target/scs-099-0.0.1-SNAPSHOT.jar
 ```
 
 ![General Flow Diagram](material/kafka-events-intro-099-3.svg)

@@ -7,8 +7,8 @@ A simple Example of an Event Driven Flow by the help of **SPRING CLOUD STREAM KA
 ##### properties
 
 * java.version: `11`
-* spring-cloud.version: `Hoxton.SR11` (To get Advantage of Binders `@Input`,`@Output`)
-* spring-boot.version: `2.4.5`
+* spring-cloud.version: `Hoxton.SR12` (To get Advantage of Binders `@Input`,`@Output`)
+* spring-boot.version: `2.4.13`
 
 ### Documentation
 Please visit [Spring Cloud Stream Kafka (Part 2)](https://tanzu.vmware.com/developer/guides/event-streaming/spring-cloud-stream-kafka-p2/) for Project documentation
