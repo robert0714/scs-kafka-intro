@@ -124,3 +124,6 @@ java --spring.profiles.active=test2 --server.port=8082  -jar target/scs-099-0.0.
 
 
 Please visit [Spring Cloud Stream Kafka (Part 1)](https://tanzu.vmware.com/developer/guides/event-streaming/spring-cloud-stream-kafka-p1/) for Project documentation
+
+### Testing Spring Cloud Stream Applications 
+[Spring Cloud Stream Polled Consumer with Embedded Kafka Broker Sample](https://github.com/spring-cloud/spring-cloud-stream-samples/tree/main/processor-samples/polled-consumer)
