@@ -25,7 +25,7 @@ docker-compose up -d
 
 or 
 - Control Center UI
-Runs a https://docs.confluent.io/platform/current/control-center/index.html[Confluent Control Center] that exposes a UI at http://locahost:9021.
+Runs a [Confluent Control Center](https://docs.confluent.io/platform/current/control-center/index.html) that exposes a UI at `http://localhost:9021/` .
 
 ```shell
 docker-compose -f ./kafka-cluster.yml -f ./control-center-ui.yml up

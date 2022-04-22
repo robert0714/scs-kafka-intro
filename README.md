@@ -28,7 +28,7 @@ Key features:
 Order Example 
 
 Key features:
-- spring boot (2.5.12)
+- spring boot (2.5.13)
 - Spring cloud Stream kafka (2020.0.5)
 - StageManger 
 - Functional interface

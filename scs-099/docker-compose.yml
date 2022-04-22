@@ -10,6 +10,7 @@ services:
       - KAFKA_ADVERTISED_HOST_NAME=127.0.0.1
       - KAFKA_ADVERTISED_PORT=9092
       - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - TZ=Asia/Taipei
     depends_on:
       - zookeeper
   zookeeper:
@@ -18,3 +19,4 @@ services:
       - "2181:2181"
     environment:
       - KAFKA_ADVERTISED_HOST_NAME=zookeeper
+      - TZ=Asia/Taipei

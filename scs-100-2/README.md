@@ -8,7 +8,7 @@ A simple Example of an Event Driven Flow by the help of **SPRING CLOUD STREAM KA
 
 * java.version: `11`
 * spring-cloud.version: `2020.0.5`
-* spring-boot.version: `2.5.12`
+* spring-boot.version: `2.5.13`
 
 ### Documentation
 Please visit [Spring Cloud Stream Kafka (Part 3)](https://tanzu.vmware.com/developer/guides/event-streaming/spring-cloud-stream-kafka-p3/) for Project documentation
@@ -22,7 +22,20 @@ The Docker-compose file contains: single kafka and zookeeper. just simply run th
 docker-compose up -d
 ```
 
+or 
+- Control Center UI
+Runs a [Confluent Control Center](https://docs.confluent.io/platform/current/control-center/index.html) that exposes a UI at `http://localhost:9021/` .
+
+```shell
+docker-compose -f ./kafka-cluster.yml -f ./control-center-ui.yml up
+```
+To stop the brokers and the Control Center UI run the following command:
+```shell
+docker-compose -f ./kafka-cluster.yml -f ./control-center-ui.yml down
+```
+
 > I assume you already have docker setup in your machine.
+
 
 ### Make the project
 
@@ -42,10 +55,14 @@ java -jar scs-100-0.0.1-SNAPSHOT.jar
 the application starts to listen on port 8080.
 
 **To scale** the application horizontally you can add the following parameter before `-jar` by
-adding `-Dserver.port=8081` (basically a different port) as:
+adding `--server.port=8081` (basically a different port) as:
 
 ```shell
-java -Dserver.port=8081 -jar scs-100-0.0.1-SNAPSHOT.jar
+java --server.port=8081 -jar scs-100-0.0.1-SNAPSHOT.jar
+```
+or
+```shell
+mvn spring-boot:run -Dserver.port=8081
 ```
 
 > When you running multiple instances of the same application on a single machine, this path must be unique for each
@@ -86,15 +103,22 @@ terminal
 _Terminal 1:_
 
 ```shell
-java -Dserver.port=8081 -jar target/scs-100-2-0.0.1-SNAPSHOT.jar
+java --server.port=8081 -jar target/scs-100-2-0.0.1-SNAPSHOT.jar
+```
+or 
+```shell
+mvn spring-boot:run -Dserver.port=8081
 ```
 
 _And on Terminal 2:_
 
 ```shell
-java -Dserver.port=8082 -jar target/scs-100-2-0.0.1-SNAPSHOT.jar
+java --server.port=8082 -jar target/scs-100-2-0.0.1-SNAPSHOT.jar
 ```
-
+or 
+```shell
+mvn spring-boot:run -Dserver.port=8082
+```
 ![General Flow Diagram](material/kafka-events-intro-1002-3.svg)
 
 _Then run our curl call command again (same as the earlier one)_

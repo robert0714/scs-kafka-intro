@@ -22,6 +22,18 @@ The Docker-compose file contains: single kafka and zookeeper. just simply run th
 docker-compose up -d
 ```
 
+or 
+- Control Center UI
+Runs a [Confluent Control Center](https://docs.confluent.io/platform/current/control-center/index.html) that exposes a UI at `http://localhost:9021/` .
+
+```shell
+docker-compose -f ./kafka-cluster.yml -f ./control-center-ui.yml up
+```
+To stop the brokers and the Control Center UI run the following command:
+```shell
+docker-compose -f ./kafka-cluster.yml -f ./control-center-ui.yml down
+```
+
 > I assume you already have docker setup in your machine.
 
 ### Make the project
@@ -43,8 +55,14 @@ the application starts to listen on port 8080. make sure that port not being occ
 to pass the following parameter before `-jar` by adding `-Dserver.port=8081` as:
 
 ```shell
-java -Dserver.port=8081 -jar scs-100-0.0.1-SNAPSHOT.jar
+java --server.port=8081 -jar target/scs-100-0.0.1-SNAPSHOT.jar
 ```
+or
+
+```shell
+mvn spring-boot:run -Dserver.port=8081
+```
+
 
 > you can also modify the application.yml and set the same properties based on your app profile
 

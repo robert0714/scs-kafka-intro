@@ -36,7 +36,7 @@ spring.cloud.stream:
         backoff-period: 500
       configuration:
         application.id: ${spring.application.name}
-        application.server: localhost:${server.port} # for InteractiveQueryService to describe itself
+        application.server: localhost:${server.port:8080} # for InteractiveQueryService to describe itself
         state.dir: state-${spring.application.name}-${server.port} # to give a unique dir name in case you run multiple of this app on the same machine
         default.key.serde: org.apache.kafka.common.serialization.Serdes$UUIDSerde
         default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde

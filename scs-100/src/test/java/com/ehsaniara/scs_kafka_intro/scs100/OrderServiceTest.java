@@ -1,5 +1,7 @@
 package com.ehsaniara.scs_kafka_intro.scs100;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -57,16 +59,17 @@ public class OrderServiceTest {
 		final UUID orderUuid = orderOut.getOrderUuid();
 		assertNotNull(orderUuid);
 		OrderStatus status = service.statusCheck(orderUuid);
-		assertEquals(OrderStatus.PENDING, status);
-
-		OrderFailedException exception = Assertions.assertThrows(OrderFailedException.class, () -> {
-			service.checkInventory(orderOut);
-		},String.format("insufficient inventory for order: %s", orderOut.getOrderUuid()));
-		Assertions.assertEquals(String.format("insufficient inventory for order: %s", orderOut.getOrderUuid()), exception.getMessage());
-
-		status = service.statusCheck(orderUuid);
-
-		assertEquals(OrderStatus.OUT_OF_STOCK, status);
+		assertEquals(OrderStatus.PENDING, status); 
+		
+		try {
+			service.checkInventory(orderOut);			
+		} catch (OrderFailedException exception) {
+			Assertions.assertEquals(String.format("insufficient inventory for order: %s", orderOut.getOrderUuid()), exception.getMessage());
+		}finally {
+			status = service.statusCheck(orderUuid);	
+			assertThat(status).isNotEqualTo(OrderStatus.PENDING);
+			assertTrue(OrderStatus.OUT_OF_STOCK.equals(status) || OrderStatus.INVENTORY_CHECKING.equals(status));
+		}		 
 	}
 
 	@Test
