@@ -79,7 +79,7 @@ public class OrderControllerTest {
 		log.info(orderUuid.toString());
 		assertEquals(OrderStatus.PENDING, order.getOrderStatus());
 		for (int i = 0; i < 16; i++) {
-			Thread.sleep(1_000);
+			Thread.sleep(1_000);			 
 			final 	OrderStatus status = getOrderStatus(orderUuid);
 			assertNotNull(status);
 			log.info("------------     "+i+"     --------------");

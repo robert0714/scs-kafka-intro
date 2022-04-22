@@ -1,18 +1,53 @@
-version: '2.1'
+version: '3'
 
 services:
-  shippied:
-    build: scs-101-shippied
+  order:
+    container_name: order
+    build: scs-101-order
     mem_limit: 512m
     environment:
       - TZ=Asia/Taipei
-    ports:
-      - "8084:8084"
+      - spring.cloud.stream.kafka.streams.binder.brokers=localhost:9092
+    # ports:
+    #   - "8080:8080"
+    network_mode:  "host"
+  order-branch:
+    container_name: order-branch
+    build: scs-101-order-branch
+    mem_limit: 512m
+    environment:
+      - TZ=Asia/Taipei
+      - spring.cloud.stream.kafka.streams.binder.brokers=localhost:9092
+    # ports:
+    #   - "8081:8081"
+    network_mode:  "host"
+  inventory-check:
+    container_name: inventory-check
+    build: scs-101-inventory-check
+    mem_limit: 512m
+    environment:
+      - TZ=Asia/Taipei
+      - spring.cloud.stream.kafka.streams.binder.brokers=localhost:9092
+    # ports:
+    #   - "8082:8082"
+    network_mode:  "host"
   shipping:
+    container_name: shipping
     build: scs-101-shipping
     mem_limit: 512m
     environment:
       - TZ=Asia/Taipei
-    ports:
-      - "8083:8083"
-  
+      - spring.cloud.stream.kafka.streams.binder.brokers=localhost:9092
+    # ports:
+    #   - "8083:8083"
+    network_mode:  "host"
+  shipped:
+    container_name: shipped
+    build: scs-101-shipped
+    mem_limit: 512m
+    environment:
+      - TZ=Asia/Taipei
+      - spring.cloud.stream.kafka.streams.binder.brokers=localhost:9092
+    # ports:
+    #   - "8084:8084"
+    network_mode:  "host"

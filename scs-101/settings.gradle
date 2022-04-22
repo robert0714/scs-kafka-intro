@@ -1,0 +1,6 @@
+include ':scs-101-commons'
+include ':scs-101-inventory-check'
+include ':scs-101-order'
+include ':scs-101-order-branch'
+include ':scs-101-shipped'
+include ':scs-101-shipping'

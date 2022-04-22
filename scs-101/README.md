@@ -32,6 +32,37 @@ lib project for core projects
 ```shell
 ORDER_UUID=$(curl --silent -H 'Content-Type: application/json' -d "{\"itemName\":\"book\"}" http://localhost:8080/order | jq -r '.orderUuid') && for i in `seq 1 15`; do sleep 1; echo $(curl --silent "http://localhost:8080/order/status/"$ORDER_UUID); done;
 ```
+# Build in local
+1. First, we build them.
+```shell
+gradle build --stacktrac
+docker-compose build
+```
+2. The Docker-compose file contains: single kafka and zookeeper. just simply run the following command
+
+ 
+- Control Center UI
+Runs a [Confluent Control Center](https://docs.confluent.io/platform/current/control-center/index.html) that exposes a UI at `http://localhost:9021/` .
+
+```shell
+docker-compose -f ./kafka-cluster.yml -f ./control-center-ui.yml up
+```
+To stop the brokers and the Control Center UI run the following command:
+```shell
+docker-compose -f ./kafka-cluster.yml -f ./control-center-ui.yml down
+```
+
+3. Start up the microservices landscape:
+
+```shell
+docker-compose up -d
+```
+We can follow the startup by monitoring the output :
+```shell
+docker-compose logs -f
+```
+> I assume you already have docker setup in your machine.
+
 
 ## Docker Images
 
