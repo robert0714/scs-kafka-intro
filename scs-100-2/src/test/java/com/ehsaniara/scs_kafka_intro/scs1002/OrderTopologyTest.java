@@ -125,19 +125,20 @@ public class OrderTopologyTest {
                 .orderStatus(OrderStatus.PENDING)//
                 .build();
         
-	    final	DefaultKafkaProducerFactory<UUID, Order> data 
+	    final	DefaultKafkaProducerFactory<UUID, Order> factory
+	    
 	    = OrderTopology.orderJsonSerdeFactoryFunction.apply( orderJsonSerde().serializer(), bootstrapServer);
 	    
-		assertThat(data).isNotNull();
+		assertThat(factory).isNotNull();
 	    
 	    //producer test sending
-//	    new KafkaTemplate<>(data) {{           
-//			setDefaultTopic(orderTopic );
-//            sendDefault(order.getOrderUuid(), order);
-//        }};
-//        final  UUID uuid = order.getOrderUuid();
-//        assertThat(uuid).isNotNull();
-//        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.PENDING);
+	    new KafkaTemplate<>(factory) {{           
+			setDefaultTopic(orderTopic );
+            sendDefault(order.getOrderUuid(), order);
+        }};
+        final  UUID uuid = order.getOrderUuid();
+        assertThat(uuid).isNotNull();
+        assertThat(order.getOrderStatus()).isEqualTo(OrderStatus.PENDING);
          
         
 	}
