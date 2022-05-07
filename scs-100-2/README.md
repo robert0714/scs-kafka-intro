@@ -137,3 +137,23 @@ Please visit [Spring Cloud Stream Kafka (Part 3)](https://tanzu.vmware.com/devel
 * [Cloud Events and Spring - part 2 (Oleg Zhurakousky)](https://spring.io/blog/2020/12/23/cloud-events-and-spring-part-2)
 * [Spring Cloud Stream - demystified and simplified](https://spring.io/blog/2019/10/14/spring-cloud-stream-demystified-and-simplified)
 * [Spring Cloud Stream - functional and reactive (Oleg Zhurakousky)](https://spring.io/blog/2019/10/17/spring-cloud-stream-functional-and-reactive)
+
+## Stream Processing with Spring Cloud Stream and Apache Kafka Streams. Part 6 - State Stores and Interactive Queries
+* Part 1 - [Programming Model](https://spring.io/blog/2019/12/02/stream-processing-with-spring-cloud-stream-and-apache-kafka-streams-part-1-programming-model)
+* Part 2 - [Programming Model Continued](https://spring.io/blog/2019/12/03/stream-processing-with-spring-cloud-stream-and-apache-kafka-streams-part-2-programming-model-continued)
+* Part 3 - [Data deserialization and serialization](https://spring.io/blog/2019/12/04/stream-processing-with-spring-cloud-stream-and-apache-kafka-streams-part-3-data-deserialization-and-serialization)
+* Part 4 - [Error Handling](https://spring.io/blog/2019/12/05/stream-processing-with-spring-cloud-stream-and-apache-kafka-streams-part-4-error-handling)
+* Part 5 - [Application Customizations](https://spring.io/blog/2019/12/06/stream-processing-with-spring-cloud-stream-and-apache-kafka-streams-part-5-application-customizations)
+
+* [Content](https://spring.io/blog/2019/12/09/stream-processing-with-spring-cloud-stream-and-apache-kafka-streams-part-6-state-stores-and-interactive-queries)
+
+### Using interactive queries to query data from state stores
+Kafka Streams lets you interactively query the data in the state store in real time as live stream processing is going on. The binder provides abstractions around this feature to make it easier to work with interactive queries. ``InteractiveQueryService`` is a basic API that the binder provides to work with state store querying. You can usually inject this as a bean into your application and then invoke various API methods from it. Here is an example:
+```java
+@Autowired
+private InteractiveQueryService interactiveQueryService;
+...
+ReadOnlyKeyValueStore<Object, Object> keyValueStore =
+interactiveQueryService.getQueryableStoreType("my-store", QueryableStoreTypes.keyValueStore());
+```
+Then you can invoke various retrieval methods from the store and iterate through the result. There are various methods that you can invoke from these state stores based on your use case and the type of state store that you are using. Please refer to the Kafka Streams documentation for [interactive queries](https://kafka.apache.org/10/documentation/streams/developer-guide/interactive-queries.html) for these various iteration methods available.
