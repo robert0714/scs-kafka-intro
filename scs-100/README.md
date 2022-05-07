@@ -81,3 +81,17 @@ ORDER_UUID=$(curl --silent -H 'Content-Type: application/json' -d "{\"itemName\"
 
 ### Next 
 Please visit [Spring Cloud Stream Kafka (Part 2)](https://tanzu.vmware.com/developer/guides/event-streaming/spring-cloud-stream-kafka-p2/) for Project documentation 
+
+
+> **⚠ NOTE:**   Starting with ``spring-cloud-stream-binder-kafka/spring-cloud-starter-stream-kafka 3.0``, when ``spring.cloud.stream.binding.<name>.consumer.batch-mode`` is set to ``true``, all of the records received by polling the Kafka Consumer will be presented as a List<?> to the listener method. Otherwise, the method will be called with one record at a time. The size of the batch is controlled by Kafka consumer properties max.poll.records, fetch.min.bytes, fetch.max.wait.ms; refer to the Kafka documentation for more information.
+> 
+> Bear in mind that ``batch mode is not supported with @StreamListener`` - it only works with the newer ``functional programming model``.
+>  reference: https://docs.spring.io/spring-cloud-stream-binder-kafka/docs/current/reference/html/spring-cloud-stream-binder-kafka.html#pause-resume
+
+
+## Spring Cloud Stream - functional and reactive
+* [Spring Cloud Function](https://spring.io/projects/spring-cloud-function)
+* [Cloud Events and Spring - part 1 (Oleg Zhurakousky)](https://spring.io/blog/2020/12/10/cloud-events-and-spring-part-1)
+* [Cloud Events and Spring - part 2 (Oleg Zhurakousky)](https://spring.io/blog/2020/12/23/cloud-events-and-spring-part-2)
+* [Spring Cloud Stream - demystified and simplified](https://spring.io/blog/2019/10/14/spring-cloud-stream-demystified-and-simplified)
+* [Spring Cloud Stream - functional and reactive (Oleg Zhurakousky)](https://spring.io/blog/2019/10/17/spring-cloud-stream-functional-and-reactive)

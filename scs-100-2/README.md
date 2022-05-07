@@ -131,3 +131,9 @@ ORDER_UUID=$(curl --silent -H 'Content-Type: application/json' -d "{\"itemName\"
 
 
 Please visit [Spring Cloud Stream Kafka (Part 3)](https://tanzu.vmware.com/developer/guides/event-streaming/spring-cloud-stream-kafka-p3/) for Project documentation
+## Spring Cloud Stream - functional and reactive
+* [Spring Cloud Function](https://spring.io/projects/spring-cloud-function)
+* [Cloud Events and Spring - part 1 (Oleg Zhurakousky)](https://spring.io/blog/2020/12/10/cloud-events-and-spring-part-1)
+* [Cloud Events and Spring - part 2 (Oleg Zhurakousky)](https://spring.io/blog/2020/12/23/cloud-events-and-spring-part-2)
+* [Spring Cloud Stream - demystified and simplified](https://spring.io/blog/2019/10/14/spring-cloud-stream-demystified-and-simplified)
+* [Spring Cloud Stream - functional and reactive (Oleg Zhurakousky)](https://spring.io/blog/2019/10/17/spring-cloud-stream-functional-and-reactive)
