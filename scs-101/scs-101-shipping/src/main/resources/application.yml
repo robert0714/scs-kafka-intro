@@ -4,7 +4,9 @@ spring.cloud.stream.bindings:
   shippingProcess-out-0.destination: scs-101.orderStatus
 server.port: 8083
 logging.level.com.ehsaniara.scs_kafka_intro: debug
+elastic.apm.enabled: false
 ---
 spring:
   config.activate.on-profile: kube
   cloud.stream.kafka.streams.binder.brokers: my-cluster-kafka-bootstrap.kafka:9092
+elastic.apm.enabled: false

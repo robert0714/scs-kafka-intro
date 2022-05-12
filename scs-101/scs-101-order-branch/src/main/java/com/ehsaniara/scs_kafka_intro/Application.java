@@ -2,6 +2,9 @@ package com.ehsaniara.scs_kafka_intro;
 
 import com.ehsaniara.scs_kafka_intro.module.Order;
 import com.ehsaniara.scs_kafka_intro.module.OrderStatus;
+
+import co.elastic.apm.attach.ElasticApmAttacher;
+
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Predicate;
@@ -16,6 +19,7 @@ import java.util.function.Function;
 public class Application {
 
     public static void main(String[] args) {
+    	ElasticApmAttacher.attach();
         SpringApplication.run(Application.class, args);
     }
 

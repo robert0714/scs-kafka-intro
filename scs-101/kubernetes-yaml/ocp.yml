@@ -29,10 +29,8 @@ spec:
             - containerPort: 8080
               protocol: TCP
           env:
-            - name: JAVA_OPTS
-              value: >-
-                -Xms1G -Xmx1536m
-                -javaagent:/application/elastic-apm-agent-1.30.1.jar          
+            - name: ELASTIC_APM_ENABLED
+              value: 'true'     
             - name: server.port
               value: '8080'
             - name: spring.cloud.stream.kafka.streams.binder.brokers
@@ -41,19 +39,19 @@ spec:
               value: Asia/Taipei
             - name: spring.cloud.stream.kafka.streams.binder.configuration.state.dir
               value: /tmp/kafka-stream
-            - name: elastic.apm.server_urls
+            - name: ELASTIC_APM_SERVER_URL
               value:  'http://apm.pdc-apm.svc.cluster.local:8200'
-            - name: elastic.apm.application_packages
+            - name: ELASTIC_APM_APPLICATION_PACKAGES
               value: com.ehsaniara.scs_kafka_intro
-            - name: elastic.apm.trace_methods
+            - name: ELASTIC_APM_TRACE_METHODS
               value:  'com.ehsaniara.scs_kafka_intro.*'
-            - name: elastic.apm.classes_excluded_from_instrumentation
+            - name: ELASTIC_APM_CLASSES_EXCLUDED_FROM_INSTRUMENTATION
               value: '*model*,*vo*,*entity*'
-            - name: elastic.apm.trace_methods_duration_threshold
+            - name: ELASTIC_APM_TRACE_METHODS_DURATION_THRESHOLD
               value: 100ms
-            - name: elastic.apm.stack_trace_limit
+            - name: ELASTIC_APM_STACK_TRACE_LIMIT
               value: '80'
-            - name: elastic.apm.service_name
+            - name: ELASTIC_APM_SERVICE_NAME
               value: scs-101-order 
           resources:
             limits:
@@ -115,10 +113,8 @@ spec:
             - containerPort: 8080
               protocol: TCP
           env:
-            - name: JAVA_OPTS
-              value: >-
-                -Xms1G -Xmx1536m
-                -javaagent:/application/elastic-apm-agent-1.30.1.jar          
+            - name: ELASTIC_APM_ENABLED
+              value: 'true'           
             - name: server.port
               value: '8080'
             - name: spring.cloud.stream.kafka.streams.binder.brokers
@@ -127,19 +123,19 @@ spec:
               value: Asia/Taipei
             - name: spring.cloud.stream.kafka.streams.binder.configuration.state.dir
               value: /tmp/kafka-stream
-            - name: elastic.apm.server_urls
+            - name: ELASTIC_APM_SERVER_URL
               value:  'http://apm.pdc-apm.svc.cluster.local:8200'
-            - name: elastic.apm.application_packages
+            - name: ELASTIC_APM_APPLICATION_PACKAGES
               value: com.ehsaniara.scs_kafka_intro
-            - name: elastic.apm.trace_methods
+            - name: ELASTIC_APM_TRACE_METHODS
               value:  'com.ehsaniara.scs_kafka_intro.*'
-            - name: elastic.apm.classes_excluded_from_instrumentation
+            - name: ELASTIC_APM_CLASSES_EXCLUDED_FROM_INSTRUMENTATION
               value: '*model*,*vo*,*entity*'
-            - name: elastic.apm.trace_methods_duration_threshold
+            - name: ELASTIC_APM_TRACE_METHODS_DURATION_THRESHOLD
               value: 100ms
-            - name: elastic.apm.stack_trace_limit
+            - name: ELASTIC_APM_STACK_TRACE_LIMIT
               value: '80'
-            - name: elastic.apm.service_name
+            - name: ELASTIC_APM_SERVICE_NAME
               value: scs-101-inventory-check
           resources:
             limits:
@@ -201,10 +197,8 @@ spec:
             - containerPort: 8080
               protocol: TCP
           env:
-            - name: JAVA_OPTS
-              value: >-
-                -Xms1G -Xmx1536m
-                -javaagent:/application/elastic-apm-agent-1.30.1.jar          
+            - name: ELASTIC_APM_ENABLED
+              value: 'true'           
             - name: server.port
               value: '8080'
             - name: spring.cloud.stream.kafka.streams.binder.brokers
@@ -213,19 +207,19 @@ spec:
               value: Asia/Taipei
             - name: spring.cloud.stream.kafka.streams.binder.configuration.state.dir
               value: /tmp/kafka-stream
-            - name: elastic.apm.server_urls
+            - name: ELASTIC_APM_SERVER_URL
               value:  'http://apm.pdc-apm.svc.cluster.local:8200'
-            - name: elastic.apm.application_packages
+            - name: ELASTIC_APM_APPLICATION_PACKAGES
               value: com.ehsaniara.scs_kafka_intro
-            - name: elastic.apm.trace_methods
+            - name: ELASTIC_APM_TRACE_METHODS
               value:  'com.ehsaniara.scs_kafka_intro.*'
-            - name: elastic.apm.classes_excluded_from_instrumentation
+            - name: ELASTIC_APM_CLASSES_EXCLUDED_FROM_INSTRUMENTATION
               value: '*model*,*vo*,*entity*'
-            - name: elastic.apm.trace_methods_duration_threshold
+            - name: ELASTIC_APM_TRACE_METHODS_DURATION_THRESHOLD
               value: 100ms
-            - name: elastic.apm.stack_trace_limit
+            - name: ELASTIC_APM_STACK_TRACE_LIMIT
               value: '80'
-            - name: elastic.apm.service_name
+            - name: ELASTIC_APM_SERVICE_NAME
               value: scs-101-order-branch
           resources:
             limits:
@@ -287,10 +281,8 @@ spec:
             - containerPort: 8080
               protocol: TCP
           env:
-            - name: JAVA_OPTS
-              value: >-
-                -Xms1G -Xmx1536m
-                -javaagent:/application/elastic-apm-agent-1.30.1.jar          
+            - name: ELASTIC_APM_ENABLED
+              value: 'true'           
             - name: server.port
               value: '8080'
             - name: spring.cloud.stream.kafka.streams.binder.brokers
@@ -299,19 +291,19 @@ spec:
               value: Asia/Taipei
             - name: spring.cloud.stream.kafka.streams.binder.configuration.state.dir
               value: /tmp/kafka-stream
-            - name: elastic.apm.server_urls
+            - name: ELASTIC_APM_SERVER_URL
               value:  'http://apm.pdc-apm.svc.cluster.local:8200'
-            - name: elastic.apm.application_packages
+            - name: ELASTIC_APM_APPLICATION_PACKAGES
               value: com.ehsaniara.scs_kafka_intro
-            - name: elastic.apm.trace_methods
+            - name: ELASTIC_APM_TRACE_METHODS
               value:  'com.ehsaniara.scs_kafka_intro.*'
-            - name: elastic.apm.classes_excluded_from_instrumentation
+            - name: ELASTIC_APM_CLASSES_EXCLUDED_FROM_INSTRUMENTATION
               value: '*model*,*vo*,*entity*'
-            - name: elastic.apm.trace_methods_duration_threshold
+            - name: ELASTIC_APM_TRACE_METHODS_DURATION_THRESHOLD
               value: 100ms
-            - name: elastic.apm.stack_trace_limit
+            - name: ELASTIC_APM_STACK_TRACE_LIMIT
               value: '80'
-            - name: elastic.apm.service_name
+            - name: ELASTIC_APM_SERVICE_NAME
               value: scs-101-shipped
           resources:
             limits:
@@ -373,10 +365,8 @@ spec:
             - containerPort: 8080
               protocol: TCP
           env:
-            - name: JAVA_OPTS
-              value: >-
-                -Xms1G -Xmx1536m
-                -javaagent:/application/elastic-apm-agent-1.30.1.jar          
+            - name: ELASTIC_APM_ENABLED
+              value: 'true'           
             - name: server.port
               value: '8080'
             - name: spring.cloud.stream.kafka.streams.binder.brokers
@@ -385,19 +375,19 @@ spec:
               value: Asia/Taipei
             - name: spring.cloud.stream.kafka.streams.binder.configuration.state.dir
               value: /tmp/kafka-stream
-            - name: elastic.apm.server_urls
+            - name: ELASTIC_APM_SERVER_URL
               value:  'http://apm.pdc-apm.svc.cluster.local:8200'
-            - name: elastic.apm.application_packages
+            - name: ELASTIC_APM_APPLICATION_PACKAGES
               value: com.ehsaniara.scs_kafka_intro
-            - name: elastic.apm.trace_methods
+            - name: ELASTIC_APM_TRACE_METHODS
               value:  'com.ehsaniara.scs_kafka_intro.*'
-            - name: elastic.apm.classes_excluded_from_instrumentation
+            - name: ELASTIC_APM_CLASSES_EXCLUDED_FROM_INSTRUMENTATION
               value: '*model*,*vo*,*entity*'
-            - name: elastic.apm.trace_methods_duration_threshold
+            - name: ELASTIC_APM_TRACE_METHODS_DURATION_THRESHOLD
               value: 100ms
-            - name: elastic.apm.stack_trace_limit
+            - name: ELASTIC_APM_STACK_TRACE_LIMIT
               value: '80'
-            - name: elastic.apm.service_name
+            - name: ELASTIC_APM_SERVICE_NAME
               value: scs-101-shipping
           resources:
             limits:

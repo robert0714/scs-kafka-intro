@@ -2,6 +2,9 @@ package com.ehsaniara.scs_kafka_intro;
 
 import com.ehsaniara.scs_kafka_intro.module.Order;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import co.elastic.apm.attach.ElasticApmAttacher;
+
 import org.apache.kafka.common.serialization.Serde;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +17,7 @@ public class Application {
     final static String STATE_STORE_NAME = "scs-101-order-events";
 
     public static void main(String[] args) {
+    	ElasticApmAttacher.attach();
         SpringApplication.run(Application.class, args);
     }
 
