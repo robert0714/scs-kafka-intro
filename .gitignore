@@ -33,5 +33,7 @@ build/
 
 ### VS Code ###
 .vscode/
-
+state-scs-99-*
+state-scs-100-*
+state-scs-100-2-*
 state-scs-101-*

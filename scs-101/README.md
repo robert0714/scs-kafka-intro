@@ -93,8 +93,10 @@ Create Order or Place your Order
 you should now be able to place your order by calling the following curl command
 
 ```shll
-# assuming your app order endpoint is scs-101-order-burr.apps.ocp.iisi.test
-SITE=scs-101-order-burr.apps.ocp.iisi.test
+# assuming your app order endpoint is burr.apps.ocp.iisi.test
+
+SITE=burr.apps.ocp.iisi.test
+
 ORDER_UUID=$(curl --silent -H 'Content-Type: application/json' -d "{\"itemName\":\"book\"}" http://$SITE/order | jq -r '.orderUuid') && for i in `seq 1 15`; do sleep 1; echo $(curl --silent "http://$SITE/order/status//"$ORDER_UUID); done;
 ```
 Note: make sure you have already installed the jq
