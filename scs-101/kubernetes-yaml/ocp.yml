@@ -107,8 +107,8 @@ spec:
         sidecar.istio.io/inject: 'true'
     spec:
       containers:
-        - name: scs-101-inventory-check
-          image: ghcr.io/robert0714/scs-101-inventory-check
+        - name: scs-101-inventory-check 
+          image: ghcr.io/robert0714/scs-kafka-intro:scs-101-inventory-check
           ports:
             - containerPort: 8080
               protocol: TCP

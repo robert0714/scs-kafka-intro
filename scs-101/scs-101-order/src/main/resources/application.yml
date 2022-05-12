@@ -17,8 +17,12 @@ spring.cloud.stream:
 server.port: 8080
 logging.level.com.ehsaniara.scs_kafka_intro: debug
 elastic.apm.enabled: false
+api.mode: REACTIVE
+#api.mode: SERVLET
 ---
 spring:
   config.activate.on-profile: kube
   cloud.stream.kafka.streams.binder.brokers: my-cluster-kafka-bootstrap.kafka:9092
 elastic.apm.enabled: false
+api.mode: REACTIVE
+#api.mode: SERVLET

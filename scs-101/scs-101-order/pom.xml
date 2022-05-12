@@ -24,23 +24,19 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>com.ehsaniara.scs_kafka_intro</groupId>
             <artifactId>scs-101-commons</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>			
+		</dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-stream-binder-kafka-streams</artifactId>
@@ -71,11 +67,6 @@
             <artifactId>spring-kafka-test</artifactId>
             <scope>test</scope>
         </dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
-			<scope>test</scope>
-		</dependency>
 		<dependency>
 		    <groupId>co.elastic.apm</groupId>
 		    <artifactId>apm-agent-attach</artifactId>
