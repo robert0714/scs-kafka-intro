@@ -27,6 +27,10 @@ lib project for core projects
 
 [![scs-101 shipping ci](https://github.com/robert0714/scs-kafka-intro/actions/workflows/scs101shipping.yml/badge.svg?branch=main)](https://github.com/robert0714/scs-kafka-intro/actions/workflows/scs101shipping.yml)
 
+# Compile
+```shell
+gradle  build --info
+```
 # Quick Start
 
 ```shell

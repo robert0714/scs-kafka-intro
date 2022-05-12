@@ -12,11 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.test.context.EmbeddedKafka;
 import org.springframework.test.annotation.DirtiesContext;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test; 
-import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+import org.testcontainers.shaded.org.awaitility.Durations;
+
+//import static org.awaitility.Awaitility.await;
+import static org.testcontainers.shaded.org.awaitility.Awaitility.await;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -30,7 +29,7 @@ import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,properties = { "pdc.check.api.mode=SERVLET" })
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT   )
 @DirtiesContext
 @EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
 public class OrderControllerTest {
@@ -52,21 +51,24 @@ public class OrderControllerTest {
 		log.info(response.getBody());
 		
 		Order order = objectMapper.readValue(response.getBody(), Order.class);
+		await().atMost(Durations.TEN_SECONDS).untilAsserted(() -> {
+			
 		
-		assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
-		assertNotNull(order);
-		final UUID orderUuid = order.getOrderUuid();
-		assertNotNull(orderUuid);
-		log.info("--------------------------------------------------------");
-		log.info(orderUuid.toString());
-		assertEquals(OrderStatus.PENDING, order.getOrderStatus());
-		for (int i = 0; i < 16; i++) {
-			Thread.sleep(1_000);
-			final 	OrderStatus status = getOrderStatus(orderUuid);
-			assertNotNull(status);
-			log.info("------------     "+i+"     --------------");
-			log.info(status.toString());
-		}
+			assertEquals(HttpStatus.OK.value(), response.getStatusCodeValue());
+			assertNotNull(order);
+			final UUID orderUuid = order.getOrderUuid();
+			assertNotNull(orderUuid);
+			log.info("--------------------------------------------------------");
+			log.info(orderUuid.toString());
+			assertEquals(OrderStatus.PENDING, order.getOrderStatus());
+			for (int i = 0; i < 9; i++) {
+				Thread.sleep(1_000);
+				final 	OrderStatus status = getOrderStatus(orderUuid);
+				assertNotNull(status);
+				log.info("------------     "+i+"     --------------");
+				log.info(status.toString());
+			}
+		});
 	}
 
 

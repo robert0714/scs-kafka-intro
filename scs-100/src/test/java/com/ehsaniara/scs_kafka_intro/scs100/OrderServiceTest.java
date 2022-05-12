@@ -18,7 +18,7 @@ import org.springframework.test.annotation.DirtiesContext;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,properties = { "pdc.check.api.mode=SERVLET" })
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT )
 @DirtiesContext
 @EmbeddedKafka(partitions = 1, brokerProperties = { "listeners=PLAINTEXT://localhost:9092", "port=9092" })
 public class OrderServiceTest {
