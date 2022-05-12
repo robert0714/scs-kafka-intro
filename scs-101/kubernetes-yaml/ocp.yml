@@ -1,0 +1,430 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:  
+  name: scs-101-order
+  namespace: burr
+  labels:
+    app: scs-101-order
+    app.kubernetes.io/component: scs-101-order
+    app.kubernetes.io/instance: scs-101-order
+    app.kubernetes.io/name: scs-101-order
+    app.kubernetes.io/part-of: scs-kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scs-101-order
+  template:
+    metadata:
+      labels:
+        app: scs-101-order
+        deploymentconfig: scs-101-order
+      annotations:
+        sidecar.istio.io/inject: 'true'
+    spec:
+      containers:
+        - name: scs-101-order
+          image: ghcr.io/robert0714/scs-kafka-intro:scs-101-order
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: JAVA_OPTS
+              value: >-
+                -Xms1G -Xmx1536m
+                -javaagent:/application/elastic-apm-agent-1.30.1.jar          
+            - name: server.port
+              value: '8080'
+            - name: spring.cloud.stream.kafka.streams.binder.brokers
+              value: 'my-cluster-kafka-bootstrap.burr.svc.cluster.local:9092'
+            - name: TZ
+              value: Asia/Taipei
+            - name: spring.cloud.stream.kafka.streams.binder.configuration.state.dir
+              value: /tmp/kafka-stream
+            - name: elastic.apm.server_urls
+              value:  'http://apm.pdc-apm.svc.cluster.local:8200'
+            - name: elastic.apm.application_packages
+              value: com.ehsaniara.scs_kafka_intro
+            - name: elastic.apm.trace_methods
+              value:  'com.ehsaniara.scs_kafka_intro.*'
+            - name: elastic.apm.classes_excluded_from_instrumentation
+              value: '*model*,*vo*,*entity*'
+            - name: elastic.apm.trace_methods_duration_threshold
+              value: 100ms
+            - name: elastic.apm.stack_trace_limit
+              value: '80'
+            - name: elastic.apm.service_name
+              value: scs-101-order 
+          resources:
+            limits:
+              cpu: '1'
+              memory: 1536Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: scs-101-order
+  namespace: burr
+  labels:
+    app: scs-101-order
+    app.kubernetes.io/component: scs-101-order
+    app.kubernetes.io/instance: scs-101-order
+    app.kubernetes.io/name: scs-101-order
+    app.kubernetes.io/part-of: scs-kafka
+spec:  
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080 
+  selector:
+    app: scs-101-order
+    deploymentconfig: scs-101-order
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: scs-101-inventory-check
+  namespace: burr
+  labels:
+    app: scs-101-inventory-check
+    app.kubernetes.io/component: scs-101-inventory-check
+    app.kubernetes.io/instance: scs-101-inventory-check
+    app.kubernetes.io/name: scs-101-inventory-check
+    app.kubernetes.io/part-of: scs-kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scs-101-inventory-check
+  template:
+    metadata:
+      labels:
+        app: scs-101-inventory-check
+        deploymentconfig: scs-101-inventory-check
+      annotations:
+        sidecar.istio.io/inject: 'true'
+    spec:
+      containers:
+        - name: scs-101-inventory-check
+          image: ghcr.io/robert0714/scs-101-inventory-check
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: JAVA_OPTS
+              value: >-
+                -Xms1G -Xmx1536m
+                -javaagent:/application/elastic-apm-agent-1.30.1.jar          
+            - name: server.port
+              value: '8080'
+            - name: spring.cloud.stream.kafka.streams.binder.brokers
+              value: 'my-cluster-kafka-bootstrap.burr.svc.cluster.local:9092'
+            - name: TZ
+              value: Asia/Taipei
+            - name: spring.cloud.stream.kafka.streams.binder.configuration.state.dir
+              value: /tmp/kafka-stream
+            - name: elastic.apm.server_urls
+              value:  'http://apm.pdc-apm.svc.cluster.local:8200'
+            - name: elastic.apm.application_packages
+              value: com.ehsaniara.scs_kafka_intro
+            - name: elastic.apm.trace_methods
+              value:  'com.ehsaniara.scs_kafka_intro.*'
+            - name: elastic.apm.classes_excluded_from_instrumentation
+              value: '*model*,*vo*,*entity*'
+            - name: elastic.apm.trace_methods_duration_threshold
+              value: 100ms
+            - name: elastic.apm.stack_trace_limit
+              value: '80'
+            - name: elastic.apm.service_name
+              value: scs-101-inventory-check
+          resources:
+            limits:
+              cpu: '1'
+              memory: 1536Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: scs-101-inventory-check
+  namespace: burr
+  labels:
+    app: scs-101-inventory-check
+    app.kubernetes.io/component: scs-101-inventory-check
+    app.kubernetes.io/instance: scs-101-inventory-check
+    app.kubernetes.io/name: scs-101-inventory-check
+    app.kubernetes.io/part-of: scs-kafka
+spec:  
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080  
+  selector:
+    app: scs-101-inventory-check
+    deploymentconfig: scs-101-inventory-check
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:  
+  name: scs-101-order-branch
+  namespace: burr
+  labels:
+    app: scs-101-order-branch
+    app.kubernetes.io/component: scs-101-order-branch
+    app.kubernetes.io/instance: scs-101-order-branch
+    app.kubernetes.io/name: scs-101-order-branch
+    app.kubernetes.io/part-of: scs-kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scs-101-order-branch
+  template:
+    metadata:
+      labels:
+        app: scs-101-order-branch
+        deploymentconfig: scs-101-order-branch
+      annotations:
+        sidecar.istio.io/inject: 'true'
+    spec:
+      containers:
+        - name: scs-101-order-branch
+          image: ghcr.io/robert0714/scs-kafka-intro:scs-101-order-branch
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: JAVA_OPTS
+              value: >-
+                -Xms1G -Xmx1536m
+                -javaagent:/application/elastic-apm-agent-1.30.1.jar          
+            - name: server.port
+              value: '8080'
+            - name: spring.cloud.stream.kafka.streams.binder.brokers
+              value: 'my-cluster-kafka-bootstrap.burr.svc.cluster.local:9092'
+            - name: TZ
+              value: Asia/Taipei
+            - name: spring.cloud.stream.kafka.streams.binder.configuration.state.dir
+              value: /tmp/kafka-stream
+            - name: elastic.apm.server_urls
+              value:  'http://apm.pdc-apm.svc.cluster.local:8200'
+            - name: elastic.apm.application_packages
+              value: com.ehsaniara.scs_kafka_intro
+            - name: elastic.apm.trace_methods
+              value:  'com.ehsaniara.scs_kafka_intro.*'
+            - name: elastic.apm.classes_excluded_from_instrumentation
+              value: '*model*,*vo*,*entity*'
+            - name: elastic.apm.trace_methods_duration_threshold
+              value: 100ms
+            - name: elastic.apm.stack_trace_limit
+              value: '80'
+            - name: elastic.apm.service_name
+              value: scs-101-order-branch
+          resources:
+            limits:
+              cpu: '1'
+              memory: 1536Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: scs-101-order-branch
+  namespace: burr
+  labels:
+    app: scs-101-order-branch
+    app.kubernetes.io/component: scs-101-order-branch
+    app.kubernetes.io/instance: scs-101-order-branch
+    app.kubernetes.io/name: scs-101-order-branch
+    app.kubernetes.io/part-of: scs-kafka
+spec:  
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080 
+  selector:
+    app: scs-101-order-branch
+    deploymentconfig: scs-101-order-branch
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:  
+  name: scs-101-shipped
+  namespace: burr
+  labels:
+    app: scs-101-shipped
+    app.kubernetes.io/component: scs-101-shipped
+    app.kubernetes.io/instance: scs-101-shipped
+    app.kubernetes.io/name: scs-101-shipped
+    app.kubernetes.io/part-of: scs-kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scs-101-shipped
+  template:
+    metadata:
+      labels:
+        app: scs-101-shipped
+        deploymentconfig: scs-101-shipped
+      annotations:
+        sidecar.istio.io/inject: 'true'
+    spec:
+      containers:
+        - name: scs-101-shipped
+          image: ghcr.io/robert0714/scs-kafka-intro:scs-101-shipped
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: JAVA_OPTS
+              value: >-
+                -Xms1G -Xmx1536m
+                -javaagent:/application/elastic-apm-agent-1.30.1.jar          
+            - name: server.port
+              value: '8080'
+            - name: spring.cloud.stream.kafka.streams.binder.brokers
+              value: 'my-cluster-kafka-bootstrap.burr.svc.cluster.local:9092'
+            - name: TZ
+              value: Asia/Taipei
+            - name: spring.cloud.stream.kafka.streams.binder.configuration.state.dir
+              value: /tmp/kafka-stream
+            - name: elastic.apm.server_urls
+              value:  'http://apm.pdc-apm.svc.cluster.local:8200'
+            - name: elastic.apm.application_packages
+              value: com.ehsaniara.scs_kafka_intro
+            - name: elastic.apm.trace_methods
+              value:  'com.ehsaniara.scs_kafka_intro.*'
+            - name: elastic.apm.classes_excluded_from_instrumentation
+              value: '*model*,*vo*,*entity*'
+            - name: elastic.apm.trace_methods_duration_threshold
+              value: 100ms
+            - name: elastic.apm.stack_trace_limit
+              value: '80'
+            - name: elastic.apm.service_name
+              value: scs-101-shipped
+          resources:
+            limits:
+              cpu: '1'
+              memory: 1536Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: scs-101-shipped
+  namespace: burr
+  labels:
+    app: scs-101-shipped
+    app.kubernetes.io/component: scs-101-shipped
+    app.kubernetes.io/instance: scs-101-shipped
+    app.kubernetes.io/name: scs-101-shipped
+    app.kubernetes.io/part-of: scs-kafka
+spec:  
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080 
+  selector:
+    app: scs-101-shipped
+    deploymentconfig: scs-101-shipped
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:  
+  name: scs-101-shipping
+  namespace: burr
+  labels:
+    app: scs-101-shipping
+    app.kubernetes.io/component: scs-101-shipping
+    app.kubernetes.io/instance: scs-101-shipping
+    app.kubernetes.io/name: scs-101-shipping
+    app.kubernetes.io/part-of: scs-kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scs-101-shipping
+  template:
+    metadata:
+      labels:
+        app: scs-101-shipping
+        deploymentconfig: scs-101-shipping
+      annotations:
+        sidecar.istio.io/inject: 'true'
+    spec:
+      containers:
+        - name: scs-101-shipping
+          image: ghcr.io/robert0714/scs-kafka-intro:scs-101-shipping
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: JAVA_OPTS
+              value: >-
+                -Xms1G -Xmx1536m
+                -javaagent:/application/elastic-apm-agent-1.30.1.jar          
+            - name: server.port
+              value: '8080'
+            - name: spring.cloud.stream.kafka.streams.binder.brokers
+              value: 'my-cluster-kafka-bootstrap.burr.svc.cluster.local:9092'
+            - name: TZ
+              value: Asia/Taipei
+            - name: spring.cloud.stream.kafka.streams.binder.configuration.state.dir
+              value: /tmp/kafka-stream
+            - name: elastic.apm.server_urls
+              value:  'http://apm.pdc-apm.svc.cluster.local:8200'
+            - name: elastic.apm.application_packages
+              value: com.ehsaniara.scs_kafka_intro
+            - name: elastic.apm.trace_methods
+              value:  'com.ehsaniara.scs_kafka_intro.*'
+            - name: elastic.apm.classes_excluded_from_instrumentation
+              value: '*model*,*vo*,*entity*'
+            - name: elastic.apm.trace_methods_duration_threshold
+              value: 100ms
+            - name: elastic.apm.stack_trace_limit
+              value: '80'
+            - name: elastic.apm.service_name
+              value: scs-101-shipping
+          resources:
+            limits:
+              cpu: '1'
+              memory: 1536Mi
+            requests:
+              cpu: 500m
+              memory: 1Gi
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: scs-101-shipping
+  namespace: burr
+  labels:
+    app: scs-101-shipping
+    app.kubernetes.io/component: scs-101-shipping
+    app.kubernetes.io/instance: scs-101-shipping
+    app.kubernetes.io/name: scs-101-shipping
+    app.kubernetes.io/part-of: scs-kafka
+spec:  
+  ports:
+    - name: 8080-tcp
+      protocol: TCP
+      port: 8080
+      targetPort: 8080 
+  selector:
+    app: scs-101-shipping
+    deploymentconfig: scs-101-shipping
+---

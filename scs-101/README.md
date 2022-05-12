@@ -67,9 +67,9 @@ docker-compose logs -f
 ## Docker Images
 
 same images for all projects tagged after the project name, since they are all in the same GitHub project, (but in the real scenario, they should be in a separate project and tagged by application version)
-### scs-101-shipping
+### scs-101-inventory-check
 ```shell
-docker pull ghcr.io/robert0714/scs-kafka-intro:scs-101-shipping
+docker pull ghcr.io/robert0714/scs-kafka-intro:scs-101-inventory-check
 ```
 ### scs-101-order
 ```shell
@@ -88,3 +88,13 @@ docker pull ghcr.io/robert0714/scs-kafka-intro:scs-101-shipped
 docker pull ghcr.io/robert0714/scs-kafka-intro:scs-101-shipping
 ```
 
+# In Kubernetes
+Create Order or Place your Order
+you should now be able to place your order by calling the following curl command
+
+```shll
+# assuming your app order endpoint is scs-101-order-burr.apps.ocp.iisi.test
+SITE=scs-101-order-burr.apps.ocp.iisi.test
+ORDER_UUID=$(curl --silent -H 'Content-Type: application/json' -d "{\"itemName\":\"book\"}" http://$SITE/order | jq -r '.orderUuid') && for i in `seq 1 15`; do sleep 1; echo $(curl --silent "http://$SITE/order/status//"$ORDER_UUID); done;
+```
+Note: make sure you have already installed the jq
